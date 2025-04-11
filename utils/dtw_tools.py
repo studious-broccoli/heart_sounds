@@ -57,3 +57,17 @@ def extract_mfcc(signal, sample_rate, n_mfcc=13, max_len=300):
         mfcc = mfcc[:, :max_len]
 
     return mfcc
+
+
+def extract_mfcc_librosa(file_path, n_mfcc=13, max_len=300):
+    y, sr = librosa.load(file_path, sr=22050)
+    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc)
+
+    # Pad or truncate
+    if mfcc.shape[1] < max_len:
+        pad_width = max_len - mfcc.shape[1]
+        mfcc = np.pad(mfcc, ((0, 0), (0, pad_width)), mode='constant')
+    else:
+        mfcc = mfcc[:, :max_len]
+
+    return mfcc

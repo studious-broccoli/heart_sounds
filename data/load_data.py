@@ -45,3 +45,4 @@ def load_wav_files_mfcc(pattern, count, n_mfcc=13, max_len=300):
             print(f"[Warning] Skipped {f} due to error: {e}")
 
     return np.stack(mfccs)
+
